@@ -32,6 +32,17 @@ module Enumerable
   def my_none?(&)
     !my_any?(&)
   end
+
+  def my_count(arg = nil, &func)
+    func ||= ->(_) { true } # Default to count all if no block
+    func = ->(e) { e == arg } if arg # Override with equality check if arg is provided
+
+    sum = 0
+    my_each do |elem|
+      sum += 1 if func.call(elem)
+    end
+    sum
+  end
 end
 
 # You will first have to define my_each
