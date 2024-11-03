@@ -28,6 +28,10 @@ module Enumerable
     end
     false
   end
+
+  def my_none?(&)
+    !my_any?(&)
+  end
 end
 
 # You will first have to define my_each
