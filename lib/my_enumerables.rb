@@ -6,6 +6,14 @@ module Enumerable
       i += 1
     end
   end
+
+  def my_select
+    enumerable = self.class.new
+    my_each do |elem|
+      enumerable << elem if yield(elem)
+    end
+    enumerable
+  end
 end
 
 # You will first have to define my_each
