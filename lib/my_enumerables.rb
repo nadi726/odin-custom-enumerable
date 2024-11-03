@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Custom enumerable methods, relying on my_each
 module Enumerable
   def my_each_with_index
     i = 0
@@ -79,12 +82,8 @@ module Enumerable
     end
   end
 end
-# (func 2 (func 1 (func 0)))
 
-# You will first have to define my_each
-# on the Array class. Methods defined in
-# your enumerable module will have access
-# to this method
+# Extend Array with the custom my_each method; required for the custom enumerable methods
 class Array
   def my_each
     for elem in self # rubocop:disable Style/For
