@@ -51,7 +51,35 @@ module Enumerable
     end
     arr
   end
+
+  def my_inject(initial_value, symbol = nil, &func)
+    return nil if initial_value.nil? && my_first.nil?
+
+    func = ->(result, elem) { result.send(symbol, elem) } if symbol
+    result = initial_value || my_first
+    enumerable = initial_value ? self : my_rest # skip the first element only if no initial value is given
+
+    enumerable.my_each do |elem|
+      result = func.call(result, elem)
+    end
+    result
+  end
+
+  # Return the first element of self, or nil if self is empty
+  def my_first
+    my_each { |e| return e }
+  end
+
+  # iterate over all of self, skipping the first element
+  def my_rest
+    is_first = true
+    my_each do |elem|
+      yield(elem) unless is_first
+      is_first = false
+    end
+  end
 end
+# (func 2 (func 1 (func 0)))
 
 # You will first have to define my_each
 # on the Array class. Methods defined in
