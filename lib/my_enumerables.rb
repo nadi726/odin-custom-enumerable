@@ -43,6 +43,14 @@ module Enumerable
     end
     sum
   end
+
+  def my_map
+    arr = []
+    my_each do |elem|
+      arr << yield(elem)
+    end
+    arr
+  end
 end
 
 # You will first have to define my_each
